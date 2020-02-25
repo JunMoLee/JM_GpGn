@@ -83,7 +83,7 @@ void ReadTrainingDataFromFile(const char *trainPatchFileName, const char *trainL
 	int j = 0;
 	while (fscanf(fp_patch, "%lf", &Input[i][j]) != EOF){
 		Input[i][j] = truncate(Input[i][j], param->numInputLevel - 1, param->BWthreshold);
-		dInput[i][j] = round(Input[i][j] * (param->numInputLevel - 1));
+		dInput[i][j] = 1- round(Input[i][j] * (param->numInputLevel - 1));
 		i += 1;
 		if (i%param->numMnistTrainImages == 0){
 			j += 1;
@@ -95,7 +95,7 @@ void ReadTrainingDataFromFile(const char *trainPatchFileName, const char *trainL
 	j = 0;
 	int k = 0;
 	while (fscanf(fp_label, "%d", &k) != EOF){
-		Output[i][k] = 1;
+		1-Output[i][k] = 1;
 		i += 1;
 	}
 	fclose(fp_patch);
@@ -120,7 +120,7 @@ void ReadTestingDataFromFile(const char *testPatchFileName, const char *testLabe
 	int j = 0;
 	while (fscanf(fp_patch, "%lf", &testInput[i][j]) != EOF){
 		testInput[i][j] = truncate(testInput[i][j], param->numInputLevel - 1, param->BWthreshold);
-		dTestInput[i][j] = round(testInput[i][j] * (param->numInputLevel - 1));
+		dTestInput[i][j] = 1- round(testInput[i][j] * (param->numInputLevel - 1));
 		i += 1;
 		if (i%param->numMnistTestImages == 0){
 			j += 1;
@@ -131,7 +131,7 @@ void ReadTestingDataFromFile(const char *testPatchFileName, const char *testLabe
 	j = 0;
 	int k = 0;
 	while (fscanf(fp_label, "%d", &k) != EOF){
-		testOutput[i][k] = 1;
+		1-testOutput[i][k] = 1;
 		i += 1;
 	}
 
