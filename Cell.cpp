@@ -263,7 +263,7 @@ void IdealDevice::Write(double deltaWeightNormalized, double weight, double minW
 RealDevice::RealDevice(int x, int y, double p, double n) {
 	this->x = x; this->y = y;	// Cell location: x (column) and y (row) start from index 0
 	const double n;
-	n = 10;
+	n = 12.5;
 	minConductance = 3.0769e-9;
 	maxConductance = 3.0769e-9 * n;		// Maximum cell conductance (S)
 	// Minimum cell conductance (S)
@@ -285,7 +285,7 @@ RealDevice::RealDevice(int x, int y, double p, double n) {
 	writeEnergy = 0;	// Dynamic variable for calculation of write energy (J)
 
 	const double k;
-	k = 2;
+	k = 128;
 	maxNumLevelLTP = k;	// Maximum number of conductance states during LTP or weight increase
 	maxNumLevelLTD = k;	// Maximum number of conductance states during LTD or weight decrease
 	numPulse = 0;	// Number of write pulses used in the most recent write operation (dynamic variable)
@@ -328,8 +328,8 @@ RealDevice::RealDevice(int x, int y, double p, double n) {
 	const double m;
 	m = 0;
 
-	NL_LTP_Gp=m;
-	NL_LTP_Gn=m;
+	NL_LTP_Gp=p;
+	NL_LTP_Gn=n;
 
 	sigmaDtoD = 0;	// Sigma of device-to-device weight update vairation in gaussian distribution
 	gaussian_dist2 = new std::normal_distribution<double>(0, sigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
@@ -338,8 +338,8 @@ RealDevice::RealDevice(int x, int y, double p, double n) {
 	paramAGp= getParamA(NL_LTP_Gp + (*gaussian_dist2)(localGen)) * maxNumLevelLTP;
 	paramAGn= getParamA(NL_LTP_Gn + (*gaussian_dist2)(localGen)) * maxNumLevelLTP;
 	/* Cycle-to-cycle weight update variation */
-	sigmaCtoC = 0.015* (maxConductance - minConductance);	// Sigma of cycle-to-cycle weight update vairation: defined as the percentage of conductance range
-	//sigmaCtoC = 0;
+	//sigmaCtoC = 0.015* (maxConductance - minConductance);	// Sigma of cycle-to-cycle weight update vairation: defined as the percentage of conductance range
+	sigmaCtoC = 0;
 	gaussian_dist3 = new std::normal_distribution<double>(0, sigmaCtoC);    // Set up mean and stddev for cycle-to-cycle weight update vairation
 
 	/* Conductance range variation */
