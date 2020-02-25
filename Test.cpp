@@ -240,7 +240,7 @@ void Validate() {
 		}
 
 		/* Second layer from hidden layer to the output layer */
-		tempMax = 0;
+		tempMax = 1;
 		countNum = 0;
 		std::fill_n(outN2, param->nOutput, 0);
 		std::fill_n(a2, param->nOutput, 0);
@@ -346,7 +346,7 @@ void Validate() {
 						} 
 				}
 				a2[j] = sigmoid(outN2[j]);
-				if (a2[j] > tempMax) {
+				if (a2[j] < tempMax) {
 					tempMax = a2[j];
 					countNum = j;
 				}
@@ -375,13 +375,13 @@ void Validate() {
 					outN2[j] += a1[k] * weight2[j][k];
 				}
 				a2[j] = sigmoid(outN2[j]);
-				if (a2[j] > tempMax) {
+				if (a2[j] < tempMax) {
 					tempMax = a2[j];
 					countNum = j;
 				}
 			}
 		}
-		if (testOutput[i][countNum] == 1) {
+		if (testOutput[i][countNum] == 0) {
 			correct++;
 		}
 	}
