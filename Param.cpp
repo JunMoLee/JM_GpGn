@@ -85,8 +85,8 @@ Param::Param() {
 	clkFreq = 2e9;		// Clock frequency (Hz)
 
 	RefreshRate = 100;
-param_gp=0;
-param_gn=0;
+param_gp=5;
+param_gn=1;
 }
 
 
