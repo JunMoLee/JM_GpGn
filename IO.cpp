@@ -95,7 +95,9 @@ void ReadTrainingDataFromFile(const char *trainPatchFileName, const char *trainL
 	j = 0;
 	int k = 0;
 	while (fscanf(fp_label, "%d", &k) != EOF){
-		1-Output[i][k] = 1;
+		for (int m=0; m<10;m++){
+		Output[i][m]=1;}
+		Output[i][k] = 0;
 		i += 1;
 	}
 	fclose(fp_patch);
@@ -131,7 +133,9 @@ void ReadTestingDataFromFile(const char *testPatchFileName, const char *testLabe
 	j = 0;
 	int k = 0;
 	while (fscanf(fp_label, "%d", &k) != EOF){
-		1-testOutput[i][k] = 1;
+		for (int m=0; m<10;m++){
+		testOutput[i][m]=1;}
+		testOutput[i][k] = 0;
 		i += 1;
 	}
 
